@@ -186,12 +186,12 @@
 			let f_data=new FormData();
 			let data = $("#frm_cc_employee").serializeArray();
 			$.each(data,(key,val)=>{
-        if(val.name!="pv_id_usr" || val.name!="ps_id_usr"){
+        // if(val.name!="pv_id_usr" || val.name!="ps_id_usr"){
           if((val.name=="e_password" || val.name=="confirm_e_password") && val.value!="" ){
             val.value=re_encode(val.value);
           }
           f_data.append(val.name,val.value);
-        }
+        // }
         
 			});
 			f_data.append("cc_employee_update",true);

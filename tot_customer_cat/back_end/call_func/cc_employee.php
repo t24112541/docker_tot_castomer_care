@@ -64,7 +64,7 @@
 		$data_convert="";
 		$update="";
 		foreach ($_POST as $key => $value) {
-			if($key!="cc_employee_update" && $key!="e_password" && $key!="e_id" && $key!="frm_cc_employee" && $value!="" && $key!="cc_employee_add" && $key!="confirm_e_password" && $key!="frm_mode"){
+			if($key!="ps_id_usr" && $key!="pv_id_usr" && $key!="cc_employee_update" && $key!="e_password" && $key!="e_id" && $key!="frm_cc_employee" && $value!="" && $key!="cc_employee_add" && $key!="confirm_e_password" && $key!="frm_mode"){
 				$data.="$key=\"{$value}\",";
 			}
 		}
