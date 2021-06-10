@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ChartJs</title>
+
+  </head>
+  
+  <body>
+  
+	<canvas id="myChart" width="10" ></canvas>
+	
+	<script src="./libs/node_modules/chart.js/dist/chart.js"></script>
+
+	
+	
+	
+  </body>
+
+    <script>
+        var link_page=link+"/cc_equipment.php";
+        load_cc_product("","");
+        var dash_label=[];
+        var dash_data=[];
+
+            
+        function load_cc_product(filter,page){
+            
+            $("#loading").show();
+            $.ajax({
+                type:"POST",
+                url:link_page,
+                data:{
+                    "dashboard_cc_equipment":true,
+                }
+            }).done((res)=>{
+                var data=JSON.parse(res);
+                console.log(data);
+                if(!data.msg){
+                    // init val
+                    $.each(data,(i, item)=>{
+                        dash_data[item.p_id]=0;
+                        dash_label[item.p_id]=item.p_name;
+
+                    });
+                    // cal val
+                    $.each(data,(i,item)=>{
+                        dash_data[item.p_id]+=parseInt(1);
+                    });
+                    console.log(dash_data);
+                    console.log(dash_label);
+                }else{
+                }
+            });
+        }
+        
+            var ctx = document.getElementById("myChart");
+            var arr="1,2,3,4";
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels:arr ,
+                    datasets: [{
+                        label: 'รายได้',
+                        data: [
+                                [12, 19, 3, 5, 2, 3],
+                                [12, 19, 3, 5, 2, 3],
+                            ],
+                        backgroundColor: [
+                                ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'],
+                            ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'],
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+    </script>	
+</html>
