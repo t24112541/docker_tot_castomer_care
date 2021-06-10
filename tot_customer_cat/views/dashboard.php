@@ -2,7 +2,7 @@
 require_once("./back_end/func/controller.php");
 require_once("./back_end/func/connection.php");
 
-error_reporting(0);
+// error_reporting(0);
     $con=new mysqli($host,$user,$pass,$db);
     if(!$con){echo "connect error: ".$con->connect_error;}
     else{$con->set_charset("utf8");
