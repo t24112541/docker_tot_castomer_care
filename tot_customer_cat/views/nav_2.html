@@ -72,23 +72,23 @@
                                   </div>
                               </div>
                               <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="ps_id">ตำแหน่ง <span style="color:red">*</span></label>
+                                  <label class="cv_keep-left" for="ps_id_usr">ตำแหน่ง <span style="color:red">*</span></label>
                                   <div class="input-group">
                                       <div class="input-group-prepend">
                                           <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                       </div>
                                       <div id="hidden"></div>
-                                      <select class="form-control" id="ps_id" name="ps_id" required></select>                        
+                                      <select class="form-control" id="ps_id_usr" name="ps_id_usr" required></select>                        
                                   </div>
                               </div>
                   <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="pv_id">จังหวัด <span style="color:red">*</span></label>
+                                  <label class="cv_keep-left" for="pv_id_usr">จังหวัด <span style="color:red">*</span></label>
                                   <div class="input-group">
                                       <div class="input-group-prepend">
                                           <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                       </div>
                                       <div id="hidden"></div>
-                                      <select class="form-control" id="pv_id" name="pv_id" required></select>                        
+                                      <select class="form-control" id="pv_id_usr" name="pv_id_usr" required></select>                        
                                   </div>
                               </div>
                               <div class="col-md-12 mb-12">
@@ -186,12 +186,18 @@
 			let f_data=new FormData();
 			let data = $("#frm_cc_employee").serializeArray();
 			$.each(data,(key,val)=>{
-        if((val.name=="e_password" || val.name=="confirm_e_password") && val.value!="" ){
-          val.value=re_encode(val.value);
+        if(val.name!="pv_id_usr" || val.name!="ps_id_usr"){
+          if((val.name=="e_password" || val.name=="confirm_e_password") && val.value!="" ){
+            val.value=re_encode(val.value);
+          }
+          f_data.append(val.name,val.value);
         }
-				f_data.append(val.name,val.value);
+        
 			});
 			f_data.append("cc_employee_update",true);
+      f_data.append("pv_id",$("#pv_id_usr").val());
+      f_data.append("ps_id",$("#ps_id_usr").val());
+
 			event.preventDefault();
 
 				$.ajax({
@@ -228,7 +234,7 @@
 				});
 			}
 			$("#loading").hide();
-			$("#ps_id").html(txt);
+			$("#ps_id_usr").html(txt);
 		});
 	}
 	function load_cc_province_nav(){
@@ -248,15 +254,15 @@
 				});
 			}
 			$("#loading").hide();
-			$("#pv_id").html(txt);
+			$("#pv_id_usr").html(txt);
 		});
 	}
   function clear_input_usr(){
 		$("#hidden").html('');
 		$("#e_name").val('');
     $("#e_lname").val('');
-    $("#ps_id").val('');
-		$("#pv_id").val('');
+    $("#ps_id_usr").val('');
+		$("#pv_id_usr").val('');
 
     $("#e_address").val('');
     $("#e_tel").val('');
@@ -276,8 +282,8 @@
 		$("#hidden").html(hiden);
 		$("#e_name").val(e_name);
     $("#e_lname").val(e_lname);
-    $("#ps_id").val(ps_id);
-		$("#pv_id").val(pv_id);
+    $("#ps_id_usr").val(ps_id);
+		$("#pv_id_usr").val(pv_id);
     $("#e_address").val(e_address);
     $("#e_tel").val(e_tel);
     $("#e_username").val(e_username);
