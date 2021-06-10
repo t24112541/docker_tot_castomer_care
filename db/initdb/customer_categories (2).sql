@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `cc_equipment` (
   `p_id` int(7) NOT NULL,
   `c_id` int(7) NOT NULL,
   `e_id` int(7) NOT NULL,
-  `eq_date_install` date DEFAULT current_timestamp(),
+  `eq_date_install` date DEFAULT '-',
   `eq_amount` int(11) DEFAULT NULL,
   `eq_des` text COLLATE utf8_unicode_ci DEFAULT '-',
   `pv_id` text COLLATE utf8_unicode_ci DEFAULT NULL,
