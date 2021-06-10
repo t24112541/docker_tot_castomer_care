@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2021 at 08:39 AM
+-- Generation Time: Jun 10, 2021 at 09:02 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -30,25 +30,31 @@ USE `customer_categories`;
 -- Table structure for table `cc_customer`
 --
 
-CREATE TABLE `cc_customer` (
-  `c_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_customer` (
+  `c_id` int(7) NOT NULL AUTO_INCREMENT,
   `c_name` text COLLATE utf8_unicode_ci NOT NULL,
   `c_lname` text COLLATE utf8_unicode_ci NOT NULL,
   `c_address` text COLLATE utf8_unicode_ci NOT NULL,
   `t_id` int(7) NOT NULL COMMENT 'รหัสประเภทลูกค้า',
   `c_tel` text COLLATE utf8_unicode_ci NOT NULL,
   `c_map` text COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'link google map',
-  `pv_id` text COLLATE utf8_unicode_ci DEFAULT NULL
+  `pv_id` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_customer`
+--
+
+TRUNCATE TABLE `cc_customer`;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_employee`
 --
 
-CREATE TABLE `cc_employee` (
-  `e_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_employee` (
+  `e_id` int(7) NOT NULL AUTO_INCREMENT,
   `e_name` text COLLATE utf8_unicode_ci NOT NULL,
   `e_lname` text COLLATE utf8_unicode_ci NOT NULL,
   `ps_id` int(7) NOT NULL COMMENT 'รหัสตำแหน่ง',
@@ -56,9 +62,15 @@ CREATE TABLE `cc_employee` (
   `e_tel` text COLLATE utf8_unicode_ci NOT NULL,
   `e_username` text COLLATE utf8_unicode_ci NOT NULL,
   `e_password` text COLLATE utf8_unicode_ci NOT NULL,
-  `pv_id` text COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `pv_id` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`e_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1234778 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_employee`
+--
+
+TRUNCATE TABLE `cc_employee`;
 --
 -- Dumping data for table `cc_employee`
 --
@@ -72,8 +84,8 @@ INSERT INTO `cc_employee` (`e_id`, `e_name`, `e_lname`, `ps_id`, `e_address`, `e
 -- Table structure for table `cc_equipment`
 --
 
-CREATE TABLE `cc_equipment` (
-  `eq_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_equipment` (
+  `eq_id` int(7) NOT NULL AUTO_INCREMENT,
   `p_id` int(7) NOT NULL,
   `c_id` int(7) NOT NULL,
   `e_id` int(7) NOT NULL,
@@ -87,35 +99,53 @@ CREATE TABLE `cc_equipment` (
   `eq_base` float DEFAULT NULL,
   `eq_date_y` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `eq_date_m` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `eq_date_d` text COLLATE utf8_unicode_ci DEFAULT NULL
+  `eq_date_d` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`eq_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_equipment`
+--
+
+TRUNCATE TABLE `cc_equipment`;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_equip_status`
 --
 
-CREATE TABLE `cc_equip_status` (
-  `eqs_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_equip_status` (
+  `eqs_id` int(7) NOT NULL AUTO_INCREMENT,
   `s_id` int(7) NOT NULL,
   `eq_id` int(7) NOT NULL,
   `e_id` int(7) NOT NULL,
-  `eqs_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `eqs_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`eqs_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_equip_status`
+--
+
+TRUNCATE TABLE `cc_equip_status`;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_position`
 --
 
-CREATE TABLE `cc_position` (
-  `ps_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_position` (
+  `ps_id` int(7) NOT NULL AUTO_INCREMENT,
   `ps_name` text COLLATE utf8_unicode_ci NOT NULL,
-  `ps_des` text COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ps_des` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ps_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_position`
+--
+
+TRUNCATE TABLE `cc_position`;
 --
 -- Dumping data for table `cc_position`
 --
@@ -132,29 +162,40 @@ INSERT INTO `cc_position` (`ps_id`, `ps_name`, `ps_des`) VALUES
 -- Table structure for table `cc_product`
 --
 
-CREATE TABLE `cc_product` (
-  `p_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_product` (
+  `p_id` int(7) NOT NULL AUTO_INCREMENT,
   `p_name` text COLLATE utf8_unicode_ci NOT NULL,
   `p_detail` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `p_serial_number` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `p_buy` int(10) DEFAULT 0 COMMENT 'ราคาซื้อ',
   `p_sell` int(10) DEFAULT 0 COMMENT 'ราคาขาย',
   `pv_id` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `p_amount` int(11) DEFAULT NULL
+  `p_amount` int(11) DEFAULT NULL,
+  PRIMARY KEY (`p_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_product`
+--
+
+TRUNCATE TABLE `cc_product`;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_province`
 --
 
-CREATE TABLE `cc_province` (
+CREATE TABLE IF NOT EXISTS `cc_province` (
   `pv_id` text COLLATE utf8_unicode_ci NOT NULL,
   `pv_name` text COLLATE utf8_unicode_ci NOT NULL,
   `pv_des` text COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_province`
+--
+
+TRUNCATE TABLE `cc_province`;
 --
 -- Dumping data for table `cc_province`
 --
@@ -169,24 +210,36 @@ INSERT INTO `cc_province` (`pv_id`, `pv_name`, `pv_des`) VALUES
 -- Table structure for table `cc_status`
 --
 
-CREATE TABLE `cc_status` (
-  `s_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_status` (
+  `s_id` int(7) NOT NULL AUTO_INCREMENT,
   `s_name` text COLLATE utf8_unicode_ci NOT NULL,
-  `s_des` text COLLATE utf8_unicode_ci DEFAULT NULL
+  `s_des` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_status`
+--
+
+TRUNCATE TABLE `cc_status`;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_type`
 --
 
-CREATE TABLE `cc_type` (
-  `t_id` int(7) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cc_type` (
+  `t_id` int(7) NOT NULL AUTO_INCREMENT,
   `t_name` text COLLATE utf8_unicode_ci NOT NULL,
-  `t_des` text COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `t_des` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`t_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Truncate table before insert `cc_type`
+--
+
+TRUNCATE TABLE `cc_type`;
 --
 -- Dumping data for table `cc_type`
 --
@@ -194,110 +247,6 @@ CREATE TABLE `cc_type` (
 INSERT INTO `cc_type` (`t_id`, `t_name`, `t_des`) VALUES
 (2, 'ทั่วไป', '...'),
 (3, 'VIP', '');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `cc_customer`
---
-ALTER TABLE `cc_customer`
-  ADD PRIMARY KEY (`c_id`);
-
---
--- Indexes for table `cc_employee`
---
-ALTER TABLE `cc_employee`
-  ADD PRIMARY KEY (`e_id`);
-
---
--- Indexes for table `cc_equipment`
---
-ALTER TABLE `cc_equipment`
-  ADD PRIMARY KEY (`eq_id`);
-
---
--- Indexes for table `cc_equip_status`
---
-ALTER TABLE `cc_equip_status`
-  ADD PRIMARY KEY (`eqs_id`);
-
---
--- Indexes for table `cc_position`
---
-ALTER TABLE `cc_position`
-  ADD PRIMARY KEY (`ps_id`);
-
---
--- Indexes for table `cc_product`
---
-ALTER TABLE `cc_product`
-  ADD PRIMARY KEY (`p_id`);
-
---
--- Indexes for table `cc_status`
---
-ALTER TABLE `cc_status`
-  ADD PRIMARY KEY (`s_id`);
-
---
--- Indexes for table `cc_type`
---
-ALTER TABLE `cc_type`
-  ADD PRIMARY KEY (`t_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cc_customer`
---
-ALTER TABLE `cc_customer`
-  MODIFY `c_id` int(7) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cc_employee`
---
-ALTER TABLE `cc_employee`
-  MODIFY `e_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1234778;
-
---
--- AUTO_INCREMENT for table `cc_equipment`
---
-ALTER TABLE `cc_equipment`
-  MODIFY `eq_id` int(7) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cc_equip_status`
---
-ALTER TABLE `cc_equip_status`
-  MODIFY `eqs_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `cc_position`
---
-ALTER TABLE `cc_position`
-  MODIFY `ps_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `cc_product`
---
-ALTER TABLE `cc_product`
-  MODIFY `p_id` int(7) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cc_status`
---
-ALTER TABLE `cc_status`
-  MODIFY `s_id` int(7) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cc_type`
---
-ALTER TABLE `cc_type`
-  MODIFY `t_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
