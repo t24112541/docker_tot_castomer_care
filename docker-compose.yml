@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: db_customer_care
     volumes:
       - ./db/initdb/:/docker-entrypoint-initdb.d
@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./tot_customer_cat/:/var/www/html/
+      - ./tot_customer_cat/:/var/www/html/tot_customer_cat
     environment:
       DEV: production
       MYSQL_HOST: ${DB_HOST}
