@@ -3,5 +3,5 @@
     $user="root";
     $pass="";
     $db="customer_categories";
-    $post="3306";
+    $port="3306";
 ?>

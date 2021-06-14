@@ -5,9 +5,9 @@
 	require_once("../func/controller.php");
 	require_once("../func/connection.php");
 	if(getenv('DEV')=="production"){
-        $db=new controller(getenv('MYSQL_HOST'),getenv('MYSQL_USER'),getenv('MYSQL_ROOT_PASSWORD'),getenv('MYSQL_DATABASE'),getenv('MYSQL_PORT'));
+        $db=new controller(getenv('MYSQL_HOST'),getenv('MYSQL_USER'),getenv('MYSQL_ROOT_PASSWORD'),getenv('MYSQL_DATABASE'));
     }else{
-        $db=new controller($host,$user,$pass,$db,$post);
+        $db=new controller($host,$user,$pass,$db,$port);
     }
     error_reporting(0);
 ?>
