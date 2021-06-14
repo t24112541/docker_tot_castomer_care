@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./tot_customer_cat/:/var/www/html/tot_customer_cat
+      - ./tot_customer_cat/:/var/www/html/
     environment:
       DEV: production
       MYSQL_HOST: ${DB_HOST}
