@@ -68,12 +68,13 @@
               else if(isset($_GET['cc_product']) || isset($_GET['add_cc_equipment'])){require_once("./views/cc_product.php");}
               else if(isset($_GET['cc_equipment']) || isset($_GET['select_cc_equipment'])){require_once("./views/cc_equipment.php");}
               else if(isset($_GET['cc_province'])){require_once("./views/cc_province.html");}
+              else if(isset($_GET['dashboard'])){require_once("./views/dashboard.html");}
 
               else if(isset($_GET['logout'])){
                 session_destroy();
                 echo "<meta http-equiv='refresh' content='0;url=?'>";
               }else{
-                require_once("./views/dashboard.php");
+                require_once("./views/dashboard.html");
               }
               
             ?>

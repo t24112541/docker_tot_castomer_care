@@ -2,7 +2,7 @@
 require_once("./back_end/func/controller.php");
 require_once("./back_end/func/connection.php");
 
-// error_reporting(0);
+error_reporting(0);
     $con=new mysqli($host,$user,$pass,$db);
     if(!$con){echo "connect error: ".$con->connect_error;}
     else{$con->set_charset("utf8");
@@ -70,12 +70,14 @@ if (mysqli_num_rows($result) > 0) {
                    
                     
 <?php 
-  
+    $l=0;
+    $n=0;
     while($row = mysqli_fetch_array($result)) {
 
       $que_revenue=mysqli_query($con,"select sum(eq_price-(eq_price*(eq_discount/100))) as total from cc_equipment where p_id={$row['p_id']} ");
       while($sh_revenue = mysqli_fetch_array($que_revenue)) {
-        $total_as_list=$sh_revenue['total'];
+        $total_as_list[$l]=$sh_revenue['total'];
+        $l++;
       }
         $labels[$row['p_id']] = $row['p_name'];
         $data[$row['p_id']] = $row['use_num'];
@@ -98,7 +100,7 @@ if (mysqli_num_rows($result) > 0) {
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> <?=$row["use_num"]?> <i class="fas fa-users"></i> <span style="font-size:10px;">เป็นเงิน </span><?=$total_as_list?> ฿</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> <?=$row["use_num"]?> <i class="fas fa-users"></i> <span style="font-size:10px;">เป็นเงิน </span><?=$total_as_list[$n++]?> ฿</div>
                                                 </div>
                                                 
                                             </div>
@@ -437,7 +439,7 @@ var myLineChart = new Chart(ctx, {
 });
 
 // market share
-var data_marget_share=<?php echo  json_encode($data);?>;
+var data_marget_share=<?php echo  json_encode($total_as_list);?>;
 var data_marget_share_arr=[];
 var lbl_marget_share=<?php echo  json_encode($labels);?>;
 var lbl_marget_share_arr=[];
