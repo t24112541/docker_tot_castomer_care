@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: mysql:8.0
+    image: mysql:5.7
     container_name: db_customer_care
     volumes:
       - ./db/initdb/:/docker-entrypoint-initdb.d
@@ -27,6 +27,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PW}
       MYSQL_DATABASE: ${DB_NAME}
     ports:
-      - "8111:80"
+      - "8100:80"
     stdin_open: true
     tty: true
