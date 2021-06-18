@@ -91,7 +91,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="number" maxlength="10" class="form-control" id="eq_base" name="eq_base" placeholder="ราคาทุน">
+                                <input type="number"  class="form-control" id="eq_base" name="eq_base" placeholder="ราคาทุน">
                             </div>
                         </div>
                         <div class="col-md-6 mb-6">
@@ -100,7 +100,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="number" maxlength="10" class="form-control" id="eq_price" name="eq_price" placeholder="ราคาขาย">
+                                <input type="number"  class="form-control" id="eq_price" name="eq_price" placeholder="ราคาขาย">
                                 <label id="eq_warning" style="color:red"></label>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="text" maxlength="10" class="form-control" id="eq_discount" name="eq_discount" placeholder="% ส่วนลด">
+                                <input type="text" value="0"  class="form-control" id="eq_discount" name="eq_discount" placeholder="% ส่วนลด">
                             </div>
                         </div>
                         <div class="col-md-6 mb-6">
@@ -119,7 +119,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="number" maxlength="10" class="form-control" id="price_total" name="price_total" readonly>
+                                <input type="number"  class="form-control" id="price_total" name="price_total" readonly>
                                 <input type="hidden" name="base" id="base">
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <textarea class="form-control" rows="3" id="eq_des" name="eq_des" placeholder="รายละเอียด"></textarea>                        
+                                <textarea value="-" class="form-control" rows="3" id="eq_des" name="eq_des" placeholder="รายละเอียด"></textarea>                        
                             </div>
                         </div>                       
                     </div>
@@ -313,6 +313,8 @@
     function add(){
 		$("#msg").html("");
 		let sta=0;
+        if($("#eq_discount").val==""){$("#eq_discount").val(0);}
+        if($("#eq_des").val==""){$("#eq_des").val("-");}
 		if(sta!=0){$("#frm_cc_equipment").addClass("was-validated");return false;}
 		else{
 			let f_data=new FormData();
