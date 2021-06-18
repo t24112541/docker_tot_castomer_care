@@ -8,7 +8,7 @@
 		// $option="where t_id like '%{$_POST['filter']}%' || t_name like '%{$_POST['filter']}%' || t_des like '%{$_POST['filter']}%'";
 		
 		$table="cc_equipment INNER JOIN cc_product ON      cc_equipment.p_id = cc_product.p_id INNER JOIN cc_customer ON      cc_customer.c_id = cc_equipment.c_id GROUP BY cc_product.p_id";
-        $select="cc_equipment.eq_date_install,  cc_customer.c_name,  cc_product.p_id, cc_product.p_name, count(cc_product.p_id) as use_num ,sum(eq_price-(eq_price*(eq_discount/100))) as total";
+        $select="cc_product.p_id, cc_product.p_name, count(cc_product.p_id) as use_num ,sum(eq_price-(eq_price*(eq_discount/100))) as total";
         echo $db->select($table,$select,"");
 
 	}else if(isset($_POST['income_per_m'])){
