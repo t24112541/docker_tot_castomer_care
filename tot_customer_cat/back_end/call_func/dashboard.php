@@ -13,7 +13,7 @@
 
 	}else if(isset($_POST['income_per_m'])){
         $table="cc_equipment";
-        $select="eq_date_y,eq_date_m,sum(eq_price-(eq_price*(eq_discount/100))) as total";
+        $select="sum(eq_price-(eq_price*(eq_discount/100))) as total";
         echo $db->select($table,$select,"");
     }else if(isset($_POST['total_as_base'])){
         $table="cc_equipment";
