@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-6">
-                            <label class="cv_keep-left" for="c_lname">สกุล <span style="color:red">*</span></label>
+                            <label class="cv_keep-left" for="c_lname">สกุล</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 mb-12">
-                            <label class="cv_keep-left" for="c_address">ที่อยู่</label>
+                            <label class="cv_keep-left" for="c_address">ที่อยู่ <span style="color:red">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
@@ -172,13 +172,14 @@
 	function sh_data(c_id,c_name,c_lname,t_id,t_name,c_address,c_tel,pv_id,pv_name){
         $("#frm_mode").val(2);
 		clear_input();
-		let txt=`
-		
-		
-		<button  id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
-		<button style="margin-left:30%" id="btn_del" onclick="cc_equipment(${c_id},'${c_name}','${c_lname}')" type="button" class="btn btn-default" data-dismiss=""><i class="fas fa-clipboard-list fa-1x"></i> รายการติดตั้ง</button>
-
-		<button style="position: absolute;right: 0;margin-right:5%" id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		let txt='';
+		if(emp_id==1234567){
+			txt=`<button  id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
+			<button style="margin-left:30%" id="btn_del" onclick="cc_equipment(${c_id},'${c_name}','${c_lname}')" type="button" class="btn btn-default" data-dismiss=""><i class="fas fa-clipboard-list fa-1x"></i> รายการสัญญา</button>
+			<button style="position: absolute;right: 0;margin-right:5%" id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		}else{
+			txt+=`<button style="margin-left:0%" id="btn_del" onclick="cc_equipment(${c_id},'${c_name}','${c_lname}')" type="button" class="btn btn-default" data-dismiss=""><i class="fas fa-clipboard-list fa-1x"></i> รายการสัญญา</button>`;
+		}
 		let hiden=`<input type="hidden" name="c_id" id="c_id" value="${c_id}">`;
 		$("#hidden").html(hiden);
 		$("#c_name").val(c_name);
@@ -193,7 +194,7 @@
 		$("#mng").html(txt);
 	}
 	function cc_equipment(c_id,c_name,c_lname){
-		let link_next=`?cc_equipment=${c_id}&c_name=${c_name}&c_lname=${c_lname}`;
+		let link_next=`?add_cc_contract=${c_id}&c_name=${c_name}&c_lname=${c_lname}`;
 		window.location.href = link_next;
 	}
 	function clear_input(){
@@ -212,7 +213,7 @@
 		$("#msg").html("");
 		let sta=0;
         if($("#c_name").val()==""){sta++;}
-        if($("#c_lname").val()==""){sta++;}
+        if($("#c_lname").val()==""){$("#c_lname").val("-")}
         if($("#t_id").val()==""){sta++;}
         if($("#c_tel").val()==""){sta++;}
         if($("#c_address").val()==""){sta++;}

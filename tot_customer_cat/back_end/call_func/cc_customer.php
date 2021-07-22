@@ -44,7 +44,8 @@
 			$data_convert.= $data[$i];
 		}
 		echo $db->insert("cc_customer",$fields_convert,$data_convert);
-		
+		$log_data=$data_convert;
+		$db->log($_SESSION['name'],"add cc_customer",$log_data); 
 	}else if(isset($_POST['cc_customer_update'])){
 		$data="";
 		$data_convert="";
@@ -58,10 +59,19 @@
 			$data_convert.= $data[$i];
 		}
 		echo $db->update("cc_customer",$data_convert,"c_id='{$_POST['c_id']}'");
-		
+		$log_data=$data_convert;
+		$db->log($_SESSION['name'],"edit cc_customer",$log_data); 
 		
 	}else if(isset($_POST['cc_customer_del'])){	
-		echo $db->delete("cc_customer","c_id='{$_POST['c_id']}'");
+		$data=json_decode($db->delete("cc_customer","c_id='{$_POST['c_id']}'"));
+		if($data->status){
+			echo $db->delete("cc_equipment","c_id='{$_POST['c_id']}'");
+			$db->log($_SESSION['name'],"remove cc_equipment","c_id='{$_POST['c_id']}'"); 
+
+		}else{
+			echo json_encode($data);
+		}
+		
 	}else if(isset($_POST['set_pagination_cc_customer'])){
 		if(isset($_POST['filter']) && $_POST['filter']!=""){
 			$where="where cc_customer.t_id=cc_type.t_id && cc_province.pv_id=cc_customer.pv_id && cc_customer.pv_id='{$_SESSION['pv_id']}' && c_name like '%{$_POST['filter']}%'  ";

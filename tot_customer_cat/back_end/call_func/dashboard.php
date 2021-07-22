@@ -20,6 +20,10 @@
         $select="sum(eq_base) as total";
         echo $db->select($table,$select,"");
     }else if(isset($_POST['income_of_year']) || isset($_GET['income_of_year'])){
+        $data['total_price']=[];
+        $data['total_base']=[];
+        $data['benefit']=[];
+
         $y_now=date("Y");
         $table="cc_equipment";
         $select="eq_date_m";
@@ -28,17 +32,42 @@
         foreach ($data_1 as $key => $val ){ 
             $if[$key]=$val->eq_date_m;
         }
-        for($i=0;$i<=12;$i++){$total_price[$i]=0;}
+        for($i=0;$i<=12;$i++){$total_price[$i]=0;$base[$i]=0;$benefit[$i]=0;}
+        
         for($i=0;$i<sizeof($if);$i++){
             $table="cc_equipment";
-            $select="(eq_price-(eq_price*(eq_discount/100))) as total";
+            $select="(eq_price-(eq_price*(eq_discount/100))) as total,eq_base";
             $option="where eq_date_m={$if[$i]}";
             $data_2=json_decode($db->select($table,$select,$option));
             foreach ($data_2 as $key => $val ){ 
                 $total_price[(int)$if[$i]-1]+=$val->total;
+                $base[(int)$if[$i]-1]+=$val->eq_base;
             }
         }
-        echo json_encode($total_price);
+        $total=0;
+        $base_tt=0;
+        $benefit_tt=0;
+        $dt[]=0;
+        foreach ($total_price as $key => $val ){ 
+            $total_price[$key]+=$total;
+            $total+=$val;
+        } 
+        foreach ($base as $key => $val ){ 
+            $base[$key]+=$base_tt;
+            $base_tt+=$val;
+            $benefit_tt+=($val-$total_price[$key]);
+            if($benefit_tt>=0){
+                $benefit[$key]+=$benefit_tt;
+
+            }
+            
+        } 
+        // $db->get_arr($benefit);
+
+        $data['total_base']=$base;
+        $data['total_price']=$total_price;
+        $data['benefit']=$benefit;
+        echo json_encode($data);
         
     }else if(isset($_POST['income_donut']) || isset($_GET['income_donut'])){
         $data['lbl_name']=[];

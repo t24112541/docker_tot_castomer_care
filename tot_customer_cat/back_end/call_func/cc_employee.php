@@ -53,6 +53,8 @@
 
 		if($chk==0){
 			echo $db->insert("cc_employee",$fields_convert,$data_convert);
+			$log_data=$data_convert;
+			$db->log($_SESSION['name'],"add cc_employee",$log_data); 
 		}else{
 			$res=[
 				"msg"=>"พบรหัสพนักงานเดียวกันในระบบ"
@@ -73,10 +75,13 @@
 		}
 		// echo $data_convert;
 		$data=json_decode($db->update("cc_employee",$data_convert,"e_id='{$_POST['e_id']}'"));
+		$log_data=$data_convert;
+		$db->log($_SESSION['name'],"edit cc_employee",$log_data); 
 		if($data->status){
 			if(isset($_POST['e_password']) && $_POST['e_password']!=""){
 				$update="e_password='{$_POST['e_password']}'";
 				echo $db->update("cc_employee",$update,"e_id='{$_POST['e_id']}'");
+				$db->log($_SESSION['name'],"edit cc_employee",$update); 
 			}else{
 				echo json_encode($data);
 			}
@@ -93,6 +98,8 @@
 			echo json_encode($res);
 		}else{
 			echo $db->delete("cc_employee","e_id='{$_POST['e_id']}'");
+			$db->log($_SESSION['name'],"remove cc_employee","e_id='{$_POST['e_id']}'"); 
+
 		}
 		
 	}else if(isset($_POST['set_pagination_cc_employee'])){

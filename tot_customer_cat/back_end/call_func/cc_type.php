@@ -26,10 +26,16 @@
 		echo $db->select("cc_type","*",$option);
 	}else if(isset($_POST['cc_type_add'])){
 		echo $db->insert("cc_type","t_name,t_des","'{$_POST['t_name']}','{$_POST['t_des']}'");
+		$db->log($_SESSION['name'],"add cc_type","t_id='{$_POST['t_id']}' ,t_name='{$_POST['t_name']}',t_des='{$_POST['t_des']}'"); 
+
 	}else if(isset($_POST['cc_type_update'])){
 	    echo $db->update("cc_type","t_name='{$_POST['t_name']}',t_des='{$_POST['t_des']}'","t_id='{$_POST['t_id']}'");
+		$db->log($_SESSION['name'],"edit cc_type","t_id='{$_POST['t_id']}' ,t_name='{$_POST['t_name']}',t_des='{$_POST['t_des']}'"); 
+
 	}else if(isset($_POST['cc_type_del'])){
 		echo $db->delete("cc_type","t_id='{$_POST['t_id']}'");
+		$db->log($_SESSION['name'],"remove cc_type","t_id='{$_POST['t_id']}'"); 
+
 	}else if(isset($_POST['set_pagination_cc_type'])){
 		if(isset($_POST['filter']) && $_POST['filter']!=""){
 			$where="where t_cc_type = '{$_POST['filter']}' || t_name like '%{$_POST['filter']}%' || t_des like '%{$_POST['filter']}%' ";

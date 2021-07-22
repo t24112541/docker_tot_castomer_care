@@ -27,6 +27,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PW}
       MYSQL_DATABASE: ${DB_NAME}
     ports:
-      - "8100:80"
+      - "80:80"
     stdin_open: true
     tty: true

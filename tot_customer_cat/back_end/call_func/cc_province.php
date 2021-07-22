@@ -26,10 +26,15 @@
 		echo $db->select("cc_province","*",$option);
 	}else if(isset($_POST['cc_province_add'])){
 		echo $db->insert("cc_province","pv_id,pv_name,pv_des","'{$_POST['pv_id']}','{$_POST['pv_name']}','{$_POST['pv_des']}'");
+		$db->log($_SESSION['name'],"add cc_province","pv_id='{$_POST['pv_id']}',pv_name='{$_POST['pv_name']}',pv_des='{$_POST['pv_des']}'"); 
 	}else if(isset($_POST['cc_province_update'])){
 	    echo $db->update("cc_province","pv_name='{$_POST['pv_name']}',pv_des='{$_POST['pv_des']}'","pv_id='{$_POST['pv_id']}'");
+		$db->log($_SESSION['name'],"edit cc_province","pv_id='{$_POST['pv_id']}' pv_name='{$_POST['pv_name']}',pv_des='{$_POST['pv_des']}'"); 
+
 	}else if(isset($_POST['cc_province_del'])){
 		echo $db->delete("cc_province","pv_id='{$_POST['pv_id']}'");
+		$db->log($_SESSION['name'],"remove cc_province","pv_id='{$_POST['pv_id']}'"); 
+
 	}else if(isset($_POST['set_pagination_cc_province'])){
 		if(isset($_POST['filter']) && $_POST['filter']!=""){
 			$where="where pv_id = '{$_POST['filter']}' || pv_name like '%{$_POST['filter']}%' || pv_des like '%{$_POST['filter']}%' ";

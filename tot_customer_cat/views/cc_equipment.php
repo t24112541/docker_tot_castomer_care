@@ -14,9 +14,9 @@
                 <h2 id="top_content" class="h5 mb-0 text-gray-800"><?=$_GET['c_name'].' '.$_GET['c_lname']?></h2>
 
                 <?php if(isset($_GET['select_cc_equipment']) && $_GET['select_cc_equipment']==true ){?>
-                    <a class=" d-sm-inline-block btn btn-sm btn btn-secondary shadow-sm" href="?add_cc_equipment=<?=$_GET['c_id']?>&&c_name=<?=$_GET['c_name']?>&&c_lname=<?=$_GET['c_lname']?>"><i class="fas fa-plus-square fa-md text-white"></i></a>
+                    <a class=" d-sm-inline-block btn btn-sm btn btn-secondary shadow-sm" href="?add_cc_equipment=<?=$_GET['c_id']?>&c_name=<?=$_GET['c_name']?>&c_lname=<?=$_GET['c_lname']?>&con_id=<?=$_GET['con_id']?>"><i class="fas fa-plus-square fa-md text-white"></i></a>
                 <?php }else{ ?>
-                    <a class=" d-sm-inline-block btn btn-sm btn btn-secondary shadow-sm" href="?add_cc_equipment=<?=$_GET['cc_equipment']?>&&c_name=<?=$_GET['c_name']?>&&c_lname=<?=$_GET['c_lname']?>"><i class="fas fa-plus-square fa-md text-white"></i></a>
+                    <a class=" d-sm-inline-block btn btn-sm btn btn-secondary shadow-sm" href="?add_cc_equipment=<?=$_GET['cc_equipment']?>&c_name=<?=$_GET['c_name']?>&c_lname=<?=$_GET['c_lname']?>&con_id=<?=$_GET['con_id']?>"><i class="fas fa-plus-square fa-md text-white"></i></a>
                 <?php } ?>
             </div>
             <div class="card-body">
@@ -50,7 +50,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="text"  class="form-control" id="eq_code" name="eq_code" placeholder="ex. 0000j0000">
+                                <input type="text" oninvalid="this.setCustomValidity('Code')"required oninput="this.setCustomValidity('')" class="form-control" id="eq_code" name="eq_code" placeholder="ex. 0000j0000">
                             </div>
                         </div>
                         <div class="col-md-6 mb-6">
@@ -59,7 +59,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="date" class="form-control"  id="eq_date_install" name="eq_date_install" >
+                                <input type="date" class="form-control" oninvalid="this.setCustomValidity('วันติดตั้ง')"required oninput="this.setCustomValidity('')"  id="eq_date_install" name="eq_date_install" >
                             </div>
                         </div>
                     <div class="col-md-12 mb-12">
@@ -86,21 +86,21 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-6">
-                            <label class="cv_keep-left" for="eq_base">ราคาทุน </label>
+                            <label class="cv_keep-left" for="eq_base">ราคาทุน <span style="color:red">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="number"  class="form-control" id="eq_base" name="eq_base" placeholder="ราคาทุน">
+                                <input type="number" oninvalid="this.setCustomValidity('ราคาทุน')"required oninput="this.setCustomValidity('')" class="form-control" id="eq_base" name="eq_base" placeholder="ราคาทุน">
                             </div>
                         </div>
                         <div class="col-md-6 mb-6">
-                            <label class="cv_keep-left" for="eq_price">ราคาขาย </label>
+                            <label class="cv_keep-left" for="eq_price">ราคาขาย <span style="color:red">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="number"  class="form-control" id="eq_price" name="eq_price" placeholder="ราคาขาย">
+                                <input type="number" oninvalid="this.setCustomValidity('ราคาขาย')"required oninput="this.setCustomValidity('')" class="form-control" id="eq_price" name="eq_price" placeholder="ราคาขาย">
                                 <label id="eq_warning" style="color:red"></label>
                             </div>
                         </div>
@@ -283,20 +283,16 @@
         p_buy=<?php if(isset($_GET['p_buy'])){ echo $_GET['p_buy'];}else{ ?>
             $("#base").val()
         <?php }?>;
-        // if(total<=p_buy){
-        //     $("#eq_warning").text("ตั้งราคาเท่าทุนหรือน้อยกว่าทุน");
-        // }else{
-        //     $("#eq_warning").text("");
-        // }
 
         $("#price_total").val(total);
         return total;
     }
+
     var c_id=<?php if(isset($_GET['cc_equipment'])){echo $_GET['cc_equipment'];}else if(isset($_GET['select_cc_equipment']) && $_GET['select_cc_equipment']==true){echo $_GET['c_id'];}?>;
     <?php if(isset($_GET['select_cc_equipment']) && $_GET['select_cc_equipment']==true){?>
         open_add(<?=$_GET['p_id']?>,<?=$_GET['c_id']?>,<?=$_SESSION['usr']?>,'<?=$_GET['p_name']?>');    
     <?php }else{    ?>
-        load_cc_equipment(<?=$_GET['cc_equipment']?>,1);     
+        load_cc_equipment(<?=$_GET['cc_equipment']?>,1,<?=$_GET['con_id']?>);     
     <?php }?>
     $(document).on('keypress',function(e) {
         
@@ -313,6 +309,10 @@
     function add(){
 		$("#msg").html("");
 		let sta=0;
+        if($("#eq_code").val()==""){sta++;}
+        if($("#eq_base").val()==""){sta++;}
+        if($("#eq_price").val()==""){sta++;}
+
         if($("#eq_discount").val==""){$("#eq_discount").val(0);}
         if($("#eq_des").val==""){$("#eq_des").val("-");}
 		if(sta!=0){$("#frm_cc_equipment").addClass("was-validated");return false;}
@@ -323,6 +323,7 @@
 				f_data.append(val.name,val.value);
 			});
 			f_data.append("cc_equipment_add",true);
+            f_data.append("con_id",<?=$_GET['con_id']?>);
 			event.preventDefault();
 			$.ajax({
 				type: "POST",
@@ -334,10 +335,10 @@
 				let data=JSON.parse(res);
 				if(data.status){
 					$("#modal_cc_equipment").modal('toggle');
-					load_cc_equipment($("#c_id").val(),tmp_page);
+					load_cc_equipment($("#c_id").val(),tmp_page,<?=$_GET['con_id']?>);
 					clear_input();
 
-                    let link_next=`?cc_equipment=${$("#c_id").val()}&&c_name=<?=$_GET['c_name']?>&&c_lname=<?=$_GET['c_lname']?>`;
+                    let link_next=`?cc_equipment=${$("#c_id").val()}&&c_name=<?=$_GET['c_name']?>&&c_lname=<?=$_GET['c_lname']?>&&con_id=<?=$_GET['con_id']?>`;
 		            window.location.href = link_next;
 
 				}else{
@@ -366,7 +367,7 @@
 					let data=JSON.parse(res);
 					if(data.status){
 						$("#modal_cc_equipment").modal('toggle');
-						load_cc_equipment($("#c_id").val(),tmp_page);
+						load_cc_equipment($("#c_id").val(),tmp_page,<?=$_GET['con_id']?>);
 						clear_input();
 					}else{
 						$("#msg").html("<div style='color:#bd4646'>"+data.msg+"</div>");
@@ -386,7 +387,7 @@
 				let data=JSON.parse(res);
 				if(data.status){
 					// $("#modal_cc_equipment").modal('toggle');
-					load_cc_equipment($("#c_id").val(),tmp_page);
+					load_cc_equipment($("#c_id").val(),tmp_page,<?=$_GET['con_id']?>);
 					clear_input();
 				}else{
 					$("#msg").html("<div style='color:#bd4646'>"+data.msg+"</div>");
@@ -394,7 +395,7 @@
 
 			});
 	}
-    function load_cc_equipment(filter,page){
+    function load_cc_equipment(filter,page,con_id){
         let sum_p_sell=0;
         let top_content=``;
         let txt=`
@@ -417,6 +418,7 @@
             url:link_page,
             data:{
                 "load_cc_equipment_detail":true,
+                "con_id":<?=$_GET['con_id']?>,
                 "filter":filter,
                 "page":page
             }
@@ -513,10 +515,12 @@
         // console.log(eq_id);
         $("#frm_mode").val(2);
 		clear_input();
-		let txt=`
-
-        <button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
-		<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+        let txt='';
+		if(emp_id==1234567){
+            txt=`
+            <button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
+            <button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+        }
         $("#c_name").text('<?=$_GET['c_name']?>'+' '+'<?=$_GET['c_lname']?>');
         $("#eq_id").val(eq_id);
         $("#p_name").text(p_name);

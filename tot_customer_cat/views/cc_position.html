@@ -126,8 +126,12 @@
 	function sh_data(ps_id,ps_name,ps_des){
         $("#frm_mode").val(2);
 		clear_input();
-		let txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
-		<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		let txt='';
+		if(emp_id==1234567){
+			txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
+			<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		
+		}
 		let hiden=`<input type="hidden" name="ps_id" id="ps_id" value="${ps_id}">`;
 		$("#hidden").html(hiden);
 		$("#ps_name").val(ps_name);

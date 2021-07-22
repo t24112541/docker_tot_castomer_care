@@ -30,123 +30,11 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
-        <div class="modal fade" id="modal_cc_employee_usr" >
-          <div class="modal-dialog modal-lg" >
-              <div class="modal-content">
-                  <!-- Modal Header -->
-                  <div class="modal-header" id="head_stage">
-                      <h4 class="modal-title">ข้อมูลพนักงาน</h4>
-                      <button type="button" onclick="" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <!-- Modal body -->
-                  
-                  <form id="frm_cc_employee" enctype="multipart/form-data">
-                      <div class="modal-body">
-                          <div class="row">
-                              <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="e_name">ชื่อ <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <input type="text" class="form-control" id="e_name" name="e_name" oninvalid="this.setCustomValidity('ชื่อ')"required oninput="this.setCustomValidity('')" placeholder="ชื่อ">
-                                  </div>
-                              </div>
-                              <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="e_lname">สกุล <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <input type="text" class="form-control" id="e_lname" name="e_lname" oninvalid="this.setCustomValidity('สกุล')"required oninput="this.setCustomValidity('')" placeholder="สกุล">
-                                  </div>
-                              </div>
-                              <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="e_tel">เบอร์โทร <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <input type="text" maxlength="10" class="form-control" id="e_tel" name="e_tel" oninvalid="this.setCustomValidity('เบอร์โทร')"required oninput="this.setCustomValidity('')" placeholder="เบอร์โทร">
-                                  </div>
-                              </div>
-                              <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="ps_id_usr">ตำแหน่ง <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <div id="hidden"></div>
-                                      <select class="form-control" id="ps_id_usr" name="ps_id_usr" required></select>                        
-                                  </div>
-                              </div>
-                  <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="pv_id_usr">จังหวัด <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <div id="hidden"></div>
-                                      <select class="form-control" id="pv_id_usr" name="pv_id_usr" required></select>                        
-                                  </div>
-                              </div>
-                              <div class="col-md-12 mb-12">
-                                  <label class="cv_keep-left" for="e_address">ที่อยู่</label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <textarea class="form-control" rows="3" id="e_address" name="e_address" placeholder="ที่อยู่"></textarea>                        
-                                  </div>
-                              </div>
-                              <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="e_username">username <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <input type="text" class="form-control" id="e_username" name="e_username" oninvalid="this.setCustomValidity('username')"required oninput="this.setCustomValidity('')" placeholder="username">
-                                  </div>
-                              </div>
-                              <div class="col-md-6 mb-6">
-                                  <label class="cv_keep-left" for="e_password">password <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <input type="password" class="form-control" id="e_password" name="e_password" oninvalid="this.setCustomValidity('password')"required oninput="this.setCustomValidity('')" placeholder="password">
-                                  </div>
-                              </div>
-                              <div class="col-md-12 mb-12">
-                                  <label class="cv_keep-left" for="confirm_e_password">confirm password <span style="color:red">*</span></label>
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text" ><i class="fas fa-tags"></i></span>
-                                      </div>
-                                      <input type="password" class="form-control" id="confirm_e_password" name="confirm_e_password" oninvalid="this.setCustomValidity('confirm password')"required oninput="this.setCustomValidity('')" placeholder="confirm password">
-                                  </div>
-                              </div>
-                          </div>
-                          
-                          
-                          <div id="frm"></div>
-                          <div id="msg"></div>
-                      </div>
-                  
-                      <!-- Modal footer -->
-                      <div class="modal-footer col-sm-12" id="modal_cc_employee_foot">	
-                          <div id="mng_usr"></div>
-                      </div>
-                  </form>
-              </div>
-      
-          </div>
-      </div>
+        
 <!-- <script src="./js/sb-admin-2.min.js"></script> -->
 <script type="text/javascript">
 	var link_page_usr=link+"/cc_employee.php";
-
+  var emp_id="";
   load_user();
   $("#confirm_e_password").keyup(function(){
         if($("#e_password").val()!=$("#confirm_e_password").val()){
@@ -165,6 +53,7 @@
         }
       }).done((res)=>{
         var data=JSON.parse(res);
+        emp_id=data[0].e_id;
         txt=`
         
                 <a class="dropdown-item" href="#" onclick="sh_data_usr('${data[0].e_id }','${data[0].e_name}','${data[0].e_lname}','${data[0].ps_id}','${data[0].ps_name}','${data[0].e_address}','${data[0].e_tel}','${data[0].e_username}','${data[0].e_password}','${data[0].pv_id}','${data[0].pv_name}')">

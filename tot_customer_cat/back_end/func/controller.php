@@ -43,6 +43,7 @@ class controller{
 					"status"=>1,
 					"auth"=>1,
 					"usr"=>$sh['e_id'],
+					"name"=>$sh['e_name'],
 					"pv_id"=>$sh['pv_id'],
 				];
 				
@@ -110,7 +111,7 @@ class controller{
 			$res=[
 				"msg"=>"error : ".$this->conn->error,
 				"status"=>0
-			];
+			]; 
 		}else{
 			$res=[
 				"msg"=>"success",
@@ -143,7 +144,44 @@ class controller{
 		print_r($data);
 		echo "</pre>";
 	}
+	function log($who,$action,$what){
+		$log=[];
+		$data=json_decode(file_get_contents('../../log/log.json'));
+		if(sizeof($data)>0){
+			for($i=0;$i<sizeof($data);$i++){
+				$log[$i]=[
+					"date"=>$data[$i]->date,
+					"who"=>$data[$i]->who,
+					"action"=>$data[$i]->action,
+					"what"=>$data[$i]->what
+				];
+			}
+		}
+		$log[sizeof($data)]=[
+			"date"=>date("Y/m/d h:i:s"),
+			"who"=>$who,
+			"action"=>$action,
+			"what"=>$what
+		];
+		$res=json_encode($log);
+		file_put_contents('../../log/log.json',$res);
+	}
+	function get_log(){
+		$data=json_decode(file_get_contents('../../log/log.json'));
+		$arr=[];
+		$len=0;
+		for($i=sizeof($data)-1;$i>=0;$i--){
+			$arr[$len]=[
+				"date"=>$data[$i]->date,
+				"who"=>$data[$i]->who,
+				"action"=>$data[$i]->action,
+				"what"=>$data[$i]->what
+			];
+			$len++;
+		}
+		return json_encode($arr);
+	}
+	
 }
-//  $db=new controller("localhost","root","","customer_categories");
-//  $db->re_encode("admin");
+
 ?>

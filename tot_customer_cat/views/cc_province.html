@@ -132,9 +132,12 @@
 	function sh_data(pv_id,pv_name,pv_des){
         $("#frm_mode").val(2);
 		clear_input();
-		let txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
-		<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
-        $("#pv_id").val(pv_id);
+		let txt='';
+		if(emp_id==1234567){
+			txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
+			<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		}
+		$("#pv_id").val(pv_id);
         $("#pv_id").attr('readonly', true);
 		$("#pv_name").val(pv_name);
         $("#pv_des").val(pv_des);

@@ -208,15 +208,18 @@
 	function sh_data(e_id,e_name,e_lname,ps_id,ps_name,e_address,e_tel,e_username,e_password,pv_id,pv_name){
         $("#frm_mode").val(2);
 		clear_input();
-		let txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
-		<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		let txt='';
+		if(emp_id==1234567){
+			txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
+			<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+			
+		}
 		let hiden=`<input type="hidden" name="e_id" id="e_id" value="${e_id}">`;
 		$("#hidden").html(hiden);
 		$("#e_name").val(e_name);
         $("#e_lname").val(e_lname);
         $("#ps_id").val(ps_id);
 		$("#pv_id").val(pv_id);
-		console.log(pv_id);
         $("#e_address").val(e_address);
         $("#e_tel").val(e_tel);
         $("#e_username").val(e_username);

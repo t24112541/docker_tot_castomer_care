@@ -178,8 +178,11 @@
 	function sh_data(p_id ,p_name,p_serial_number,p_detail,p_buy,p_sell,p_amount){
         $("#frm_mode").val(2);
 		clear_input();
-		let txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
-		<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		let txt='';
+		if(emp_id==1234567){
+			txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
+			<button id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+		}
 		let hiden=`<input type="hidden" name="p_id" id="p_id" value="${p_id}">`;
 		$("#hidden").html(hiden);
 		$("#p_name").val(p_name);
@@ -319,7 +322,7 @@
 				        	</button>
                             <?php }else{ ?>
                             <td>
-                            <a style="color:#fff"  href="?select_cc_equipment=true&&p_id=${item.p_id }&&c_id=<?=$_GET['add_cc_equipment']?>&&p_name=${item.p_name}&&c_name=<?=$_GET['c_name']?>&&c_lname=<?=$_GET['c_lname']?>&&p_buy=${item.p_buy}" class="btn">
+                            <a style="color:#fff"  href="?select_cc_equipment=true&&p_id=${item.p_id }&&c_id=<?=$_GET['add_cc_equipment']?>&&p_name=${item.p_name}&&c_name=<?=$_GET['c_name']?>&&c_lname=<?=$_GET['c_lname']?>&&p_buy=${item.p_buy}&&con_id=<?=$_GET['con_id']?>" class="btn">
                                 <i class="fas fa-plus-square fa-md text-white"></i>
 				        	</a>
                             

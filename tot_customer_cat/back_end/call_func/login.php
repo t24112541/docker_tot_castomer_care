@@ -9,10 +9,11 @@
 		  $_SESSION[$key]=$val;
 
 		}
+		
 
-	}else if(isset($_POST['chk_login'])){
+	}else if(isset($_POST['chk_login']) || isset($_GET['chk_login'])){
 		echo $_SESSION['status'];
-		echo $_SESSION['auth'];
+		echo $_SESSION['auth']."<br>";
 		echo $_SESSION['usr'];
 	}
 ?>

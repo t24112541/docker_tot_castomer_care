@@ -1,6 +1,6 @@
 <?php 
-    $host="10.161.48.40:9906";
+    $host="localhost";
     $user="root";
-    $pass="access_deny";
+    $pass="";
     $db="customer_categories";
 ?>

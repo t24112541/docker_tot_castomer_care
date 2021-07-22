@@ -44,7 +44,9 @@
 			$data_convert.= $data[$i];
 		}
 		echo $db->insert("cc_product",$fields_convert,$data_convert);
-		
+		$log_data=$data_convert;
+		$db->log($_SESSION['name'],"add cc_product",$log_data); 
+
 	}else if(isset($_POST['cc_product_update'])){
 		$data="";
 		$data_convert="";
@@ -58,10 +60,14 @@
 			$data_convert.= $data[$i];
 		}
 		echo $db->update("cc_product",$data_convert,"p_id='{$_POST['p_id']}'");
-		
+		$log_data=$data_convert;
+		$db->log($_SESSION['name'],"edit cc_product",$log_data); 
+
 		
 	}else if(isset($_POST['cc_product_del'])){	
 		echo $db->delete("cc_product","p_id='{$_POST['p_id']}'");
+		$db->log($_SESSION['name'],"remove cc_product","p_id='{$_POST['p_id']}'"); 
+
 	}else if(isset($_POST['set_pagination_cc_product'])){
 		if(isset($_POST['filter']) && $_POST['filter']!=""){
 			$where="where  cc_product.pv_id=cc_province.pv_id && cc_product.pv_id='{$_SESSION['pv_id']}' && p_name like '%{$_POST['filter']}%' || p_serial_number like '%{$_POST['filter']}%'  ";

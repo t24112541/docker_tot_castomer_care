@@ -19,9 +19,9 @@
   <!-- Custom styles for this template-->
   <link href="./css/sb-admin-2.css?v=1001" rel="stylesheet">
   <script src="./js/jquery-3.4.1.js"></script>
-  <script src="./js/popper.min.js"></script>
+  <!-- <script src="./js/popper.min.js"></script> -->
   <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/cv_js.js?v=1008"></script>
+  <script src="./js/cv_js.js?v=1010"></script>
 </head>
 
 <body id="page-top">
@@ -65,10 +65,12 @@
               else if(isset($_GET['cc_type'])){require_once("./views/cc_type.html");}
               else if(isset($_GET['cc_employee'])){require_once("./views/cc_employee.html");}
               else if(isset($_GET['cc_customer'])){require_once("./views/cc_customer.html");}
+              else if(isset($_GET['add_cc_contract'])){require_once("./views/cc_contract.html");}
               else if(isset($_GET['cc_product']) || isset($_GET['add_cc_equipment'])){require_once("./views/cc_product.php");}
               else if(isset($_GET['cc_equipment']) || isset($_GET['select_cc_equipment'])){require_once("./views/cc_equipment.php");}
               else if(isset($_GET['cc_province'])){require_once("./views/cc_province.html");}
               else if(isset($_GET['dashboard'])){require_once("./views/dashboard.html");}
+              else if(isset($_GET['get_log'])){require_once("./views/log.html");}
 
               else if(isset($_GET['logout'])){
                 session_destroy();
