@@ -109,7 +109,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer col-sm-12" id="modal_cc_contract_foot">	
-                    <div style="width:100%" id="mng"></div>
+                    <div  id="mng"></div>
                 </div>
             </form>
         </div>
@@ -160,6 +160,7 @@
 	function open_add(){
         $("#frm_mode").val(1);
 		clear_input();
+		
 		let txt=`<button id="btn_save" onclick="add()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
 		$("#mng").html(txt);
 	}
@@ -174,8 +175,8 @@
 		let txt='';
 		if(emp_id==1234567){
 			txt=`<button id="btn_del" data-dismiss="modal" data-toggle="modal" data-target="#del_modal" type="button" class="btn btn-danger" data-dismiss=""><i class="fas fa-trash-alt fa-1x"></i> ลบ</button>
-			<button style="margin-left:30%" id="btn_del" onclick="cc_equipment(${$_rec.add_cc_contract},'${$_rec.c_name}','${$_rec.c_lname}','${con_id}')" type="button" class="btn btn-default" data-dismiss=""><i class="fas fa-clipboard-list fa-1x"></i> รายการติดตั้ง</button>
-			<button style="position: absolute;right: 0;margin-right:5%" id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
+			<button  id="btn_del" onclick="cc_equipment(${$_rec.add_cc_contract},'${$_rec.c_name}','${$_rec.c_lname}','${con_id}')" type="button" class="btn btn-default" data-dismiss=""><i class="fas fa-clipboard-list fa-1x"></i> รายการติดตั้ง</button>
+			<button  id="btn_save" onclick="update()" type="button" class="btn btn-success" data-dismiss=""><i class="fas fa-save fa-1x"></i> บันทึก</button>`;
 		}else{
 			txt=`<button style="margin-left:0%" id="btn_del" onclick="cc_equipment(${$_rec.add_cc_contract},'${$_rec.c_name}','${$_rec.c_lname}','${con_id}')" type="button" class="btn btn-default" data-dismiss=""><i class="fas fa-clipboard-list fa-1x"></i> รายการติดตั้ง</button>`;
 		}
@@ -190,6 +191,7 @@
 		$("#mng").html(txt);
 	}
 	function resetCanvas(){
+		$("#date_start").html('');
 		$('#chart_break_even').remove(); // this is my <canvas> element
 		$('#break_area').append('<canvas id="chart_break_even"><canvas>');
 		canvas = document.querySelector('#chart_break_even');
@@ -205,6 +207,7 @@
 	function break_even(con_id,con_date){
 		resetCanvas();
 		// ,eq_base,eq_price,eq_discount
+		let benefit;
 		$.ajax({
 				type:"POST",
 				url:link_page,
@@ -214,16 +217,42 @@
 				}
 			}).done((res)=>{
 				var data=JSON.parse(res);
-				let benefit=data.break_even;
-				console.log(data);
+
+				// console.log(data);
+				// --------------------------------------------- วันที่คืนทุน
+				benefit=data.break_even;	// ใช้ตัวแปรร่วมกัน
+				
 				let date=chk_date(con_date);
+				
+				
+				let break_point=-1;
+				$.each(benefit,(key,val)=>{
+					if(break_point==-1&&val==0){
+						break_point=key;
+					}
+				});
+
+				break_point++;
+				let date_ex=con_date.split("-");
+
+				break_year=parseInt(date_ex[0])+parseInt((((parseInt(date_ex[1]))+break_point) /13).toFixed(0)) ;
+				// console.log(break_year);
+
+				let break_month=((parseInt(date_ex[1]))+break_point) %12;
+				// console.log(break_month);
+				let break_date=(break_year) +"-"+break_month+"-"+parseInt(date_ex[2]);
+				// console.log(chk_date(break_date)); 
+
+				// ---------------------------------------------
 				let ds=`
-						ต้นทุนรวม : ${data.sum_base} <br>
-						รายได้รวม : ${data.sum_money} <br>
+						
 						<center>
 							นับจากวันที่ :
-							${date}
-						</center>`;
+							${date} - ${chk_date(break_date)}
+						</center>
+						ต้นทุนรวม : ${data.sum_base} <br>
+						รายได้รวม : ${data.sum_money} /เดือน<br>
+						`;
 				$("#date_start").html(ds);
 				var ctx = document.getElementById("chart_break_even");
 				var myLineChart = new Chart(ctx, {
@@ -310,15 +339,27 @@
 					}
 					}
 				});
+
+				
 			});
+			
 	}
 	function clear_input(){
+		resetCanvas();
+
+		$("#con_name").val(con_name);
+        $("#con_date").val(con_date);
+        $("#con_des").val(con_des);
+		
+		$("#mng").html('');
+
 		$("#hidden").html('');
 		$("#con_name").val('');
         $("#con_date").val('');
         $("#con_des").val('');
 		$("#frm_cc_contract").removeClass("was-validated");
         $("#msg").html('');
+
 	}
 	function add(){
 		$("#msg").html("");

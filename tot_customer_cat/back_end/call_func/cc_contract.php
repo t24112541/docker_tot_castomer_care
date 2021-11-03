@@ -48,7 +48,7 @@
 		$db->log($_SESSION['name'],"add cc_contract",$log_data); 
 
 	}else if(isset($_POST['cc_contract_update'])){
-	    echo $db->update("cc_contract","con_name='{$_POST['con_name']}',con_des='{$_POST['con_des']}'con_date='{$_POST['con_date']}'","con_id='{$_POST['con_id']}'");
+	    echo $db->update("cc_contract","con_name='{$_POST['con_name']}',con_des='{$_POST['con_des']}',con_date='{$_POST['con_date']}'","con_id='{$_POST['con_id']}'");
 		$db->log($_SESSION['name'],"edit cc_contract","con_id='{$_POST['con_id']}' con_name='{$_POST['con_name']}',con_des='{$_POST['con_des']}'con_date='{$_POST['con_date']}'"); 
 
 	}else if(isset($_POST['cc_contract_del'])){

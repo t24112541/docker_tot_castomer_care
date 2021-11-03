@@ -54,12 +54,12 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-6">
-                            <label class="cv_keep-left" for="eq_date_install">วันติดตั้ง <span style="color:red">*</span> </label>
+                            <label class="cv_keep-left" id="date_show" for="eq_date_install">วันติดตั้ง <span style="color:red">*</span> </label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" ><i class="fas fa-tags"></i></span>
                                 </div>
-                                <input type="date" class="form-control" oninvalid="this.setCustomValidity('วันติดตั้ง')"required oninput="this.setCustomValidity('')"  id="eq_date_install" name="eq_date_install" >
+                                <input type="date"  class="form-control" oninvalid="this.setCustomValidity('วันติดตั้ง')"required oninput="this.setCustomValidity('')"  id="eq_date_install" name="eq_date_install" >
                             </div>
                         </div>
                     <div class="col-md-12 mb-12">
@@ -258,7 +258,7 @@
     $("#eq_discount").keyup(function(){
         cal_price();
     });
-    $( "#eq_date_install" ).change(function() {
+    $( "#eq_date_install").change(function() {
         let date_ins=$("#eq_date_install").val();
         // console.log($("#eq_date_install").val());
         // console.log(date_ins.split("-") );
@@ -268,6 +268,8 @@
         <input type="hidden" name="eq_date_d" id="eq_date_d" value="${date_ins.split("-")[2]}">
         `;
         $("#date_for_chart").html(txt);
+        $("#date_show").text(chk_date(date_ins));
+        console.log(chk_date(date_ins));
         
     });
     function cal_price(){
