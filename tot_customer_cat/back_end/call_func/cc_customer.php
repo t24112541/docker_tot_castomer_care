@@ -2,7 +2,7 @@
 	include_once("./header.php");
 
 	$perpage=10;
-
+	
 	if(isset($_POST['load_cc_customer'])){
 		if(isset($_POST['page'])){
 			$page=$_POST['page'];
@@ -17,6 +17,32 @@
 		}
 		
 		echo $db->select("cc_customer,cc_type,cc_province","*",$option);
+	}else if(isset($_POST['cc_customer_show_money'])){
+		$select="
+			eq_price, 
+			eq_discount, 
+			c_name
+		";
+		$option="
+			INNER JOIN
+			cc_equipment
+			ON 
+				cc_customer.c_id = cc_equipment.c_id
+			Where cc_customer.c_id='{$_POST['c_id']}' 
+		";
+
+		
+		$que=json_decode($db->select("cc_customer",$select,$option));
+
+		$list_price=0;
+		foreach ($que as $key => $val ){ 
+			$list_price+=($val->eq_price-($val->eq_price*($val->eq_discount/100)));
+		}
+		$res=[
+			"list_price"=>$list_price
+		];
+		echo json_encode($res);
+
 	}else if(isset($_POST['load_cc_customer_detail'])){
 		if(isset($_POST['filter']) && $_POST['filter']!=""){
 			$option="where c_id = '{$_POST['filter']}' ";

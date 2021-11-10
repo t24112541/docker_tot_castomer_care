@@ -131,7 +131,24 @@
                                 </div>
                                 <textarea value="-" class="form-control" rows="3" id="eq_des" name="eq_des" placeholder="รายละเอียด"></textarea>                        
                             </div>
-                        </div>                       
+                        </div>    
+                        <div class="col-md-12 mb-12">
+                            <label class="cv_keep-left" for="eq_des">รูปแบบการคิดเงิน</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend" style="margin-right:10px">
+                                    <span class="input-group-text" ><i class="fas fa-tags"></i></span>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pay_type" id="pay_type1" value="just_one">
+                                    <label class="form-check-label" for="pay_type1">จ่ายครั้งเดียว</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pay_type" id="pay_type2" value="monthly" checked>
+                                    <label class="form-check-label" for="pay_type2">รายเดือน</label>
+                                </div>   
+                                                
+                            </div>
+                        </div>                        
                     </div>
                     <div id="frm"></div>
                     <div id="msg"></div>
@@ -239,7 +256,8 @@
                                 </div>
                                 <label class="form-control"  id="eq_des_print" name="eq_des_print"></label>                        
                             </div>
-                        </div>                       
+                        </div>  
+                                                 
                     </div>
                 </div>
                     </div>
@@ -322,7 +340,7 @@
 			let f_data=new FormData();
 			let data = $("#frm_cc_equipment").serializeArray();
 			$.each(data,(key,val)=>{
-				f_data.append(val.name,val.value);
+                f_data.append(val.name,(val.value==""?"-":val.value));
 			});
 			f_data.append("cc_equipment_add",true);
             f_data.append("con_id",<?=$_GET['con_id']?>);
