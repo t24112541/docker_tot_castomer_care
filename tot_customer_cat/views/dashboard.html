@@ -175,6 +175,7 @@ function income_per_y(){
     }
   }).done((res)=>{
     var data=JSON.parse(res);
+    
       $.each(data,(i, item)=>{
                   txt+=`
                       <div class="col-xl-6 col-md-6 mb-4">
@@ -193,7 +194,7 @@ function income_per_y(){
                   `;
       });
           $("#head_var").html(txt);
-          income_per_y
+          // income_per_y
   });    
   total_as_base();
 
@@ -245,6 +246,10 @@ function income_5_y(){
     var lbl_5_y=data.lbl_name;
     var data_5_y=data.val;
     // income 5 years
+
+    // console.log(lbl_5_y);
+    // console.log(data_5_y);
+
     var ctx = document.getElementById("income5years");
     var myBarChart = new Chart(ctx, {
       type: 'bar',
@@ -405,6 +410,8 @@ var data_income_of_year;
       }
   }).done((res)=>{
     var data=JSON.parse(res);
+    console.log("income of year");
+    console.log(data);
       // income of year
       var data_benefit=data.total_price;
       var base=data.total_base;

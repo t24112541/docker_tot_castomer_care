@@ -25,7 +25,7 @@
 		$fields_convert="";
 		$data_convert="";
 		foreach ($_POST as $key => $value) {
-			if($key!="frm_cc_equipment" && $value!="" && $key!="cc_equipment_add" && $key!="frm_mode" && $key!="price_total"){
+			if($key!="frm_cc_equipment" && $value!="" && $key!="cc_equipment_add" && $key!="frm_mode"  && $key!="base"  && $key!="pay_type" && $key!="price_total"){
 				$fields.="$key,";
 				$data.="\"{$value}\",";
 			}
