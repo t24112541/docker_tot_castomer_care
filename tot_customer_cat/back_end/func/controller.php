@@ -3,7 +3,7 @@ ob_start();
 class controller{
 	private $conn;
 	function __construct($host,$user,$pass,$db){
-		error_reporting(0);
+		// error_reporting(0);
 		$con=new mysqli($host,$user,$pass,$db);
 		if(!$con){echo "connect error: ".$con->connect_error;}
 		else{$con->set_charset("utf8");$this->conn=$con;date_default_timezone_set("Asia/Bangkok");}
