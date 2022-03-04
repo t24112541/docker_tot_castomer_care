@@ -4,19 +4,21 @@
 	$perpage=10;
 
 	if(isset($_POST['market_share'])){
-		
+		$y_now=date("Y");
 		// $option="where t_id like '%{$_POST['filter']}%' || t_name like '%{$_POST['filter']}%' || t_des like '%{$_POST['filter']}%'";
 		
-		$table="cc_equipment INNER JOIN cc_product ON      cc_equipment.p_id = cc_product.p_id INNER JOIN cc_customer ON      cc_customer.c_id = cc_equipment.c_id GROUP BY cc_product.p_id";
+		$table="cc_equipment INNER JOIN cc_product ON      cc_equipment.p_id = cc_product.p_id INNER JOIN cc_customer ON      cc_customer.c_id = cc_equipment.c_id where eq_date_y = {$y_now} GROUP BY cc_product.p_id";
         $select="cc_product.p_id, cc_product.p_name, count(cc_product.p_id) as use_num ,sum(eq_price-(eq_price*(eq_discount/100))) as total";
         echo $db->select($table,$select,"");
 
 	}else if(isset($_POST['income_per_m'])){
-        $table="cc_equipment";
+        $y_now=date("Y");
+        $table="cc_equipment where eq_date_y = {$y_now}";
         $select="sum(eq_price-(eq_price*(eq_discount/100))) as total";
         echo $db->select($table,$select,"");
     }else if(isset($_POST['total_as_base'])){
-        $table="cc_equipment";
+        $y_now=date("Y");
+        $table="cc_equipment where eq_date_y = {$y_now}";
         $select="sum(eq_base) as total";
         echo $db->select($table,$select,"");
     }else if(isset($_POST['income_of_year']) || isset($_GET['income_of_year'])){
@@ -70,11 +72,12 @@
         echo json_encode($data);
         
     }else if(isset($_POST['income_donut']) || isset($_GET['income_donut'])){
+        $y_now=date("Y");
         $data['lbl_name']=[];
         $data['val']=[];
         $l=0;
         $n=0;
-        $table="cc_equipment INNER JOIN cc_product ON      cc_equipment.p_id = cc_product.p_id INNER JOIN cc_customer ON      cc_customer.c_id = cc_equipment.c_id GROUP BY cc_product.p_id";
+        $table="cc_equipment INNER JOIN cc_product ON      cc_equipment.p_id = cc_product.p_id INNER JOIN cc_customer ON      cc_customer.c_id = cc_equipment.c_id  GROUP BY cc_product.p_id";
         $select="cc_product.p_id,p_name";
         $option="";
         $data_1=json_decode($db->select($table,$select,$option));
@@ -83,7 +86,7 @@
             // $data['lbl_name']=array($val->p_name);
             $table="cc_equipment";
             $select="sum(eq_price-(eq_price*(eq_discount/100))) as total";
-            $option="where    p_id={$val->p_id}";
+            $option="where    p_id={$val->p_id} && eq_date_y = {$y_now}";
             $data_2=json_decode($db->select($table,$select,$option));
 
             foreach ($data_2 as $key => $val ){ 
